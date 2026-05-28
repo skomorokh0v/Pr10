@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Справочная система OCS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f4f4f4;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .help-section {
+            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+        }
+        .help-section h2 {
+            color: #2980b9;
+        }
+        .help-card {
+            background: #ecf0f1;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .shortcut {
+            background: #2c3e50;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        footer {
+            margin-top: 40px;
+            font-size: 12px;
+            color: #7f8c8d;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📘 Справочная система OCS — Online-Cinema System</h1>
+    <p>Документация для оператора (контент-менеджера и администратора).</p>
+
+    <div class="help-section">
+        <h2>1. Начало работы</h2>
+        <div class="help-card"><strong>Регистрация:</strong> Нажмите «Регистрация» → введите email, пароль, имя → подтвердите.</div>
+        <div class="help-card"><strong>Вход:</strong> Кнопка «Вход» → email + пароль → «Войти».</div>
+        <div class="help-card"><strong>Настройка профиля:</strong> Нажмите на аватар → «Профиль» → изменить имя, пароль.</div>
+    </div>
+
+    <div class="help-section">
+        <h2>2. Поиск и каталог фильмов</h2>
+        <div class="help-card"><strong>Фильтр по жанру:</strong> Выберите жанр в выпадающем списке.</div>
+        <div class="help-card"><strong>Поиск:</strong> Введите название в строке поиска.</div>
+        <div class="help-card"><strong>Сортировка:</strong> По году, рейтингу или популярности.</div>
+        <div class="help-card"><strong>Пагинация:</strong> Используйте кнопки «Вперёд/Назад» внизу каталога.</div>
+    </div>
+
+    <div class="help-section">
+        <h2>3. Просмотр фильмов</h2>
+        <div class="help-card"><strong>Управление плеером:</strong> Play/Pause (Пробел), громкость (↑/↓), полный экран (F).</div>
+        <div class="help-card"><strong>Сохранение прогресса:</strong> Видео запоминает место остановки.</div>
+        <div class="help-card"><strong>Перемотка:</strong> Клик по шкале времени или стрелки ← →.</div>
+        <div class="help-card"><strong>Субтитры:</strong> Кнопка CC в плеере (если доступны).</div>
+    </div>
+
+    <div class="help-section">
+        <h2>4. Управление подпиской</h2>
+        <div class="help-card"><strong>Тарифы:</strong> Базовый (199₽/мес) — SD, Премиум (499₽/мес) — 4K + устройств: 4.</div>
+        <div class="help-card"><strong>Оплата:</strong> В разделе «Подписка» → выбрать тариф → ввести карту → оплатить.</div>
+        <div class="help-card"><strong>Отмена подписки:</strong> «Моя подписка» → «Отменить» → подтвердить.</div>
+        <div class="help-card"><strong>Продление:</strong> Автоматически каждый месяц. При ошибке — уведомление на email.</div>
+    </div>
+
+    <div class="help-section">
+        <h2>5. Администрирование</h2>
+        <div class="help-card"><strong>Добавление фильма:</strong> /admin → «Фильмы» → «Добавить» → заполнить форму → загрузить постер и видео.</div>
+        <div class="help-card"><strong>Управление пользователями:</strong> /admin → «Пользователи» → блокировка / смена роли.</div>
+        <div class="help-card"><strong>Просмотр статистики:</strong> /admin → «Статистика» → просмотры, доходы, подписки.</div>
+        <div class="help-card"><strong>Модерация контента:</strong> Редактирование метаданных, смена постера, удаление.</div>
+    </div>
+
+    <div class="help-section">
+        <h2>⚡ Горячие клавиши</h2>
+        <div class="help-card"><span class="shortcut">F1</span> — открыть эту справку</div>
+        <div class="help-card"><span class="shortcut">Ctrl + K</span> — быстрый поиск фильма</div>
+        <div class="help-card"><span class="shortcut">Esc</span> — закрыть плеер/модальное окно</div>
+    </div>
+
+    <footer>
+        Документ разработан по ГОСТ 19.505-79 ЕСПД. Версия 1.0 | OCS Online-Cinema System
+    </footer>
+</div>
+</body>
+</html>
