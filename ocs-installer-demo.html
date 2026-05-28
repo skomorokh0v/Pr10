@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Установка OCS — инсталлятор</title>
+    <style>
+        body {
+            background: #1e1e2f;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .installer {
+            width: 550px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .content {
+            padding: 20px;
+        }
+        .step {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .progress {
+            background: #ecf0f1;
+            border-radius: 20px;
+            height: 20px;
+            margin: 15px 0;
+        }
+        .progress-bar {
+            background: #27ae60;
+            width: 0%;
+            height: 20px;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            line-height: 20px;
+            font-size: 12px;
+        }
+        button {
+            background: #2980b9;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background: #1f618d;
+        }
+        .log {
+            background: #2d2d2d;
+            color: #0f0;
+            font-family: monospace;
+            padding: 10px;
+            height: 120px;
+            overflow-y: auto;
+            font-size: 12px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+<div class="installer">
+    <div class="header">🔧 Установка OCS Online-Cinema System v1.0</div>
+    <div class="content">
+        <div class="step">
+            <strong>Шаг 1. Выберите компоненты:</strong><br>
+            <label><input type="checkbox" id="compBackend" checked> Бэкенд-сервер (Node.js)</label>
+            <label><input type="checkbox" id="compFrontend" checked> Фронтенд</label>
+            <label><input type="checkbox" id="compPostgres" checked> PostgreSQL 15+</label>
+            <label><input type="checkbox" id="compRedis" checked> Redis 7.x</label>
+        </div>
+        <div class="step">
+            <strong>Шаг 2. Параметры подключения:</strong><br>
+            <label>Порт сервера: <input type="text" id="port" value="3000"></label>
+            <label>Пароль БД: <input type="password" id="dbPass" value="admin123"></label>
+            <label>JWT Secret: <input type="text" id="jwtSecret" value="super-secret-key-ocs"></label>
+        </div>
+        <div class="progress"><div class="progress-bar" id="progressBar">0%</div></div>
+        <button id="installBtn">🚀 Установить</button>
+        <button id="resetBtn">⟳ Сброс</button>
+        <div class="log" id="log"></div>
+        <p style="font-size:12px; margin-top:10px;">*Демо-инсталлятор. Реальная версия — setup.exe для Windows Server.</p>
+    </div>
+</div>
+<script>
+    const installBtn = document.getElementById('installBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const progressBar = document.getElementById('progressBar');
+    const logDiv = document.getElementById('log');
+
+    function addLog(msg) {
+        const p = document.createElement('div');
+        p.textContent = `> ${msg}`;
+        logDiv.appendChild(p);
+        logDiv.scrollTop = logDiv.scrollHeight;
+    }
+
+    async function runInstall() {
+        installBtn.disabled = true;
+        let progress = 0;
+        progressBar.style.width = '0%';
+        progressBar.textContent = '0%';
+        logDiv.innerHTML = '';
+
+        const components = [];
+        if (document.getElementById('compBackend').checked) components.push('Бэкенд');
+        if (document.getElementById('compFrontend').checked) components.push('Фронтенд');
+        if (document.getElementById('compPostgres').checked) components.push('PostgreSQL');
+        if (document.getElementById('compRedis').checked) components.push('Redis');
+
+        addLog('🔍 Проверка системных требований...');
+        await sleep(500);
+        addLog('✅ ОЗУ: 16 ГБ (достаточно)');
+        addLog('✅ Свободное место: 45 ГБ');
+        await sleep(500);
+
+        for (let i = 0; i < components.length; i++) {
+            addLog(`📦 Установка ${components[i]}...`);
+            progress += 100 / components.length / 2;
+            progressBar.style.width = progress + '%';
+            progressBar.textContent = Math.floor(progress) + '%';
+            await sleep(700);
+        }
+
+        addLog('⚙️ Настройка переменных окружения...');
+        addLog(`   PORT=${document.getElementById('port').value}`);
+        addLog(`   DB_PASS=***`);
+        addLog(`   JWT_SECRET=***`);
+        await sleep(500);
+
+        addLog('🛠️ Регистрация служб Windows...');
+        progress += 30;
+        progressBar.style.width = progress + '%';
+        progressBar.textContent = Math.floor(progress) + '%';
+        await sleep(600);
+
+        addLog('✅ Создание ярлыков в меню Пуск');
+        progress = 100;
+        progressBar.style.width = '100%';
+        progressBar.textContent = '100%';
+        await sleep(400);
+        addLog('🎉 Установка завершена! OCS готов к использованию.');
+        addLog('📌 Нажмите Готово и перезагрузите сервер (при необходимости).');
+        installBtn.disabled = false;
+    }
+
+    function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+
+    installBtn.onclick = runInstall;
+    resetBtn.onclick = () => {
+        document.getElementById('compBackend').checked = true;
+        document.getElementById('compFrontend').checked = true;
+        document.getElementById('compPostgres').checked = true;
+        document.getElementById('compRedis').checked = true;
+        document.getElementById('port').value = '3000';
+        document.getElementById('dbPass').value = 'admin123';
+        document.getElementById('jwtSecret').value = 'super-secret-key-ocs';
+        progressBar.style.width = '0%';
+        progressBar.textContent = '0%';
+        logDiv.innerHTML = '';
+        installBtn.disabled = false;
+    };
+</script>
+</body>
+</html>
